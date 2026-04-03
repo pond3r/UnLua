@@ -15,10 +15,13 @@
 #pragma once
 
 #include "Runtime/Launch/Resources/Version.h"
+
 #include "UnLuaBase.h"
 #include "UnLuaTemplate.h"
 #include "LuaValue.h"
 #include "LuaEnv.h"
+#include "Templates/ChooseClass.h"
+#include "Templates/IsTriviallyDestructible.h"
 
 namespace UnLua
 {

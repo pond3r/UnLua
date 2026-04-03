@@ -14,6 +14,7 @@
 
 
 #include "LuaFunction.h"
+#include "UObject/MetaData.h"
 #include "LuaOverrides.h"
 #include "LuaOverridesClass.h"
 #include "UnLuaModule.h"
@@ -141,7 +142,7 @@ void ULuaFunction::Override(UFunction* Function, UClass* Class, bool bAddNew)
     check(Function && Class && !From.IsValid());
 
 #if WITH_METADATA
-    UMetaData::CopyMetadata(Function, this);
+    FMetaData::CopyMetadata(Function, this);
 #endif
 
     bActivated = false;

@@ -68,9 +68,7 @@ void ULuaOverridesClass::AddToOwner()
         return;
 
 #if UE_VERSION_NEWER_THAN(5, 2, 1)
-    auto ChildrenPtr = Class->Children.Get();
-
-    auto Field = &ChildrenPtr;
+    TObjectPtr<UField>* Field = &Class->Children;
 #else
     auto Field = &(Class->Children);
 #endif
@@ -98,9 +96,7 @@ void ULuaOverridesClass::RemoveFromOwner()
         return;
 
 #if UE_VERSION_NEWER_THAN(5, 2, 1)
-    auto ChildrenPtr = Class->Children.Get();
-
-    auto Field = &ChildrenPtr;
+    TObjectPtr<UField>* Field = &Class->Children;
 #else
     auto Field = &Class->Children;
 #endif

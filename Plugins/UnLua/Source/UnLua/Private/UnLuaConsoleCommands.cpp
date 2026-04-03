@@ -58,13 +58,12 @@ namespace UnLua
             return;
         }
 
-        const auto& Format = TEXT(R"(
-            local name = "%s"
+        const auto Chunk = FString::Format(TEXT(R"(
+            local name = "{0}"
             package.loaded[name] = nil
             collectgarbage("collect")
             require(name)
-        )");
-        const auto Chunk = FString::Printf(Format, *Args[0]);
+        )"), {Args[0]});
         Env->DoString(Chunk);
     }
 

@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 
 #include "UnLuaDebugBase.h"
+#include "Templates/ChooseClass.h"
+#include "Templates/IsTriviallyDestructible.h"
 
 namespace UnLua
 {
@@ -440,7 +442,7 @@ namespace UnLua
         const int Actual = lua_gettop(L); 
         if (Actual < Expected)
         {
-            UE_LOG(LogUnLua, Warning, TEXT("Attempted to call constructor of %s with invalid arguments. %d expected but got %d."), *TType<ClassType>::GetName(), Expected, Actual);
+            UE_LOG(LogUnLua, Warning, TEXT("Attempted to call constructor of %s with invalid arguments. %d expected but got %d."), UTF8_TO_TCHAR(TType<ClassType>::GetName()), Expected, Actual);
             return 0;
         }
 

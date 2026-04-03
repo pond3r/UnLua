@@ -26,8 +26,8 @@ public class LuaProtobuf : ModuleRules
         bEnforceIWYU = false;
 #endif
         bUseUnity = false;
-        PCHUsage = PCHUsageMode.NoSharedPCHs;
-        bEnableUndefinedIdentifierWarnings = false;
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+        CppCompileWarningSettings.UndefinedIdentifierWarningLevel = WarningLevel.Off;
 
         PublicDependencyModuleNames.AddRange(
             new[]
@@ -49,7 +49,10 @@ public class LuaProtobuf : ModuleRules
             {
                 "EXTENSION_NAMESPACE_BEGIN=namespace UnLuaExtensions { namespace LuaProtobuf {",
                 "EXTENSION_NAMESPACE_END=}}",
-                "LUA_LIB"
+                "LUA_LIB",
+                "__GNUC__=0",
+                "__GNUC_MINOR__=0",
+                "__GNUC_PATCHLEVEL__=0"
             }
         );
         

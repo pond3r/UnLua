@@ -23,6 +23,9 @@
 #include "ReflectionUtils/FieldDesc.h"
 #include "ReflectionUtils/PropertyDesc.h"
 
+// UE5.7 introduced TString as a template alias which conflicts with Lua's internal TString struct.
+#define TString lua_TString
+
 #ifdef __cplusplus
 #if !LUA_COMPILE_AS_CPP
 extern "C" {
@@ -38,6 +41,8 @@ extern "C" {
 }
 #endif
 #endif
+
+#undef TString
 
 const FScriptContainerDesc FScriptContainerDesc::Array(sizeof(FLuaArray), "TArray");
 const FScriptContainerDesc FScriptContainerDesc::Set(sizeof(FLuaSet), "TSet");

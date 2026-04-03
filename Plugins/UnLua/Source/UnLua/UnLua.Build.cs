@@ -31,6 +31,7 @@ public class UnLua : ModuleRules
         bEnforceIWYU = false;
 #endif
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+        CppCompileWarningSettings.UndefinedIdentifierWarningLevel = WarningLevel.Off;
 
         PublicIncludePaths.AddRange(
             new string[]
