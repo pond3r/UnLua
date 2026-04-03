@@ -20,7 +20,9 @@ public class TPSProjectEditorTarget : TargetRules
     public TPSProjectEditorTarget(TargetInfo Target) : base(Target)
     {
         Type = TargetType.Editor;
-        DefaultBuildSettings = BuildSettingsVersion.V2;
+        DefaultBuildSettings = BuildSettingsVersion.V6;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
+        CppStandard = CppStandardVersion.Cpp20;
         ExtraModuleNames.AddRange(
             new string[]
             {

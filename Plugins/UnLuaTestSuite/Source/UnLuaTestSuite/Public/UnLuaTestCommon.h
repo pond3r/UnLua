@@ -217,6 +217,14 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestClass, PrettyName, (EAutomationTestFlags::C
 ///////////////////////////////
 // RUNNER_TEST MACROS
 
+// UE5.7 added FUtf8StringView and FStringView overloads for TestEqual, making calls with
+// const char* arguments ambiguous. Normalize const char* to FUtf8StringView to resolve it.
+namespace UnLuaTestCommonPrivate
+{
+    template<typename T> FORCEINLINE const T& Normalize(const T& Val) { return Val; }
+    FORCEINLINE FUtf8StringView Normalize(const char* Val) { return FUtf8StringView(Val); }
+}
+
 #define RUNNER_TEST_TRUE(expression)\
     if (!GetTestRunner().TestTrue(TEXT(#expression), (bool)(expression)))\
     {\
@@ -230,7 +238,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestClass, PrettyName, (EAutomationTestFlags::C
     }
 
 #define RUNNER_TEST_EQUAL(expression, expected)\
-    if (!GetTestRunner().TestEqual(TEXT(#expression), expression, expected))\
+    if (!GetTestRunner().TestEqual(TEXT(#expression), UnLuaTestCommonPrivate::Normalize(expression), UnLuaTestCommonPrivate::Normalize(expected)))\
     {\
     return true;\
     }

@@ -256,7 +256,15 @@ EPIC_TEST_BOOLEAN_(TEXT(#expression), expression, expected)
 #define TEST_QUAT_EQUAL(expression, expected) \
 EPIC_TEST_BOOLEAN_(TEXT(#expression), FQuat::ErrorAutoNormalize(expression, expected) < 0.0001, true)
 
+// UE5.7 added FUtf8StringView and FStringView overloads for TestEqual, making calls with
+// const char* arguments ambiguous. Normalize const char* to FUtf8StringView to resolve it.
+namespace UnLuaTestPrivate
+{
+    template<typename T> FORCEINLINE const T& Normalize(const T& Val) { return Val; }
+    FORCEINLINE FUtf8StringView Normalize(const char* Val) { return FUtf8StringView(Val); }
+}
+
 #define EPIC_TEST_BOOLEAN_(text, expression, expected) \
-TestEqual(text, expression, expected);
+TestEqual(text, UnLuaTestPrivate::Normalize(expression), UnLuaTestPrivate::Normalize(expected));
 
 #endif
