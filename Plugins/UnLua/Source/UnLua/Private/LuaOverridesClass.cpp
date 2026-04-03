@@ -22,7 +22,7 @@ ULuaOverridesClass* ULuaOverridesClass::Create(UClass* Class)
     auto ClassName = MakeUniqueObjectName(GetTransientPackage(), Class, FName(*ClassNameString));
     auto Ret = NewObject<ULuaOverridesClass>(GetTransientPackage(), ClassName, RF_Public | RF_Transient);
     Ret->ClassFlags |= CLASS_NewerVersionExists; // bypass FBlueprintActionDatabase::RefreshClassActions
-    Ret->ClassDefaultObject = StaticClass()->GetDefaultObject();
+    Ret->SetDefaultObject(StaticClass()->GetDefaultObject());
     Ret->SetSuperStruct(StaticClass());
     Ret->Bind();
     Ret->Owner = Class;
